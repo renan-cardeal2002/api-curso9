@@ -3,17 +3,17 @@ import { User } from 'src/user/entities/user.entity';
 
 @Schema()
 export class Course {
-    @Prop({ required: true }) 
-    name: string;
+  @Prop({ required: true })
+  name: string;
 
-    @Prop({ required: true })
-    value: string;
+  @Prop({ required: true })
+  value: string;
 
-    @Prop({ required: true })
-    duration: string;
+  @Prop({ required: true })
+  duration: string;
 
-    @Prop()
-    students: User[];
+  @Prop()
+  students: User[];
 }
 
-export const CourseSchema = SchemaFactory.createForClass(Course) 
+export const CourseSchema = SchemaFactory.createForClass(Course);

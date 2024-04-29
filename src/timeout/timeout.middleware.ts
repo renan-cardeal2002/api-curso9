@@ -4,9 +4,16 @@ import { Request, Response, NextFunction } from 'express';
 @Injectable()
 export class TimeoutMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
-    req.setTimeout(1000, () => {
-      console.log('Tempo acima do normal');
+    const startTime = Date.now();
+
+    res.on('finish', () => {
+      const endTime = Date.now();
+      const responseTime = endTime - startTime;
+      console.log(
+        `Request ${req.method} ${req.url} - Response Time: ${responseTime}ms`,
+      );
     });
+
     next();
   }
 }

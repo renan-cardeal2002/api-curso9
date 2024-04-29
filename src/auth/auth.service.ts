@@ -4,7 +4,10 @@ import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  constructor(private usersService: UserService, private jwtService: JwtService) {}
+  constructor(
+    private usersService: UserService,
+    private jwtService: JwtService,
+  ) {}
 
   async signIn(username: string, pass: string): Promise<any> {
     const user = await this.usersService.findByUser(username, pass);

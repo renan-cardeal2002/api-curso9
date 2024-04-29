@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Put, } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Put,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -41,7 +51,10 @@ export class UserController {
 
   @UseGuards(AuthGuard)
   @Put(':id')
-  registrationStudantCourse(@Param('idStudant') idStudant: string, @Param('idCourse') idCourse: string) {
+  registrationStudantCourse(
+    @Param('idStudant') idStudant: string,
+    @Param('idCourse') idCourse: string,
+  ) {
     return this.userService.registrationStudantCourse(idStudant, idCourse);
   }
 }
