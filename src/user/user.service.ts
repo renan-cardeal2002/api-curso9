@@ -5,6 +5,7 @@ import { User } from './entities/user.entity';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { CourseService } from 'src/course/course.service';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -15,6 +16,9 @@ export class UserService {
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     try {
+      const salt = await bcrypt.genSalt();
+      createUserDto.password = await bcrypt.hash(createUserDto.password, salt);
+
       const createdUser = new this.userModel(createUserDto);
       return createdUser.save();
     } catch (error) {
@@ -39,6 +43,17 @@ export class UserService {
   async findById(id: string): Promise<User> {
     try {
       return await this.userModel.findById(id).select('-password');
+    } catch (error) {
+      throw new BadRequestException('Something bad happened', {
+        cause: new Error(),
+        description: 'Some error description',
+      });
+    }
+  }
+
+  async findByUserNoPass(name: string): Promise<User> {
+    try {
+      return await this.userModel.findOne({ name }).exec();
     } catch (error) {
       throw new BadRequestException('Something bad happened', {
         cause: new Error(),
