@@ -27,7 +27,7 @@ export class UserService {
 
   async findAll(): Promise<User[]> {
     try {
-      return this.userModel.find().exec();
+      return this.userModel.find().select('-password').exec();
     } catch (error) {
       throw new BadRequestException('Something bad happened', {
         cause: new Error(),
@@ -38,7 +38,7 @@ export class UserService {
 
   async findById(id: string): Promise<User> {
     try {
-      return await this.userModel.findById(id);
+      return await this.userModel.findById(id).select('-password');
     } catch (error) {
       throw new BadRequestException('Something bad happened', {
         cause: new Error(),
@@ -49,7 +49,10 @@ export class UserService {
 
   async findByUser(name: string, password: string): Promise<User> {
     try {
-      return await this.userModel.findOne({ name, password }).exec();
+      return await this.userModel
+        .findOne({ name, password })
+        .select('-password')
+        .exec();
     } catch (error) {
       throw new BadRequestException('Something bad happened', {
         cause: new Error(),
@@ -60,7 +63,9 @@ export class UserService {
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     try {
-      return await this.userModel.findByIdAndUpdate(id, updateUserDto);
+      return await this.userModel
+        .findByIdAndUpdate(id, updateUserDto)
+        .select('-password');
     } catch (error) {
       throw new BadRequestException('Something bad happened', {
         cause: new Error(),
@@ -71,7 +76,7 @@ export class UserService {
 
   async remove(id: string): Promise<User> {
     try {
-      return await this.userModel.findByIdAndDelete(id);
+      return await this.userModel.findByIdAndDelete(id).select('-password');
     } catch (error) {
       throw new BadRequestException('Something bad happened', {
         cause: new Error(),
