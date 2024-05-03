@@ -9,9 +9,12 @@ export class TimeoutMiddleware implements NestMiddleware {
     res.on('finish', () => {
       const endTime = Date.now();
       const responseTime = endTime - startTime;
-      console.log(
-        `Request ${req.method} ${req.url} - Response Time: ${responseTime}ms`,
-      );
+
+      if (responseTime > 1000) {
+        console.log(
+          `Request ${req.method} ${req.url} - Response Time: ${responseTime}ms`,
+        );
+      }
     });
 
     next();
