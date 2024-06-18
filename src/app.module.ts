@@ -1,5 +1,5 @@
 import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
-import { UserModule } from './user/user.module';
+import { UserModule } from './resources/user/user.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CourseModule } from './course/course.module';
 import { AlterValueMiddleware } from './logger/alter-value';

@@ -5,7 +5,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Course } from './entities/course.entity';
 import { Model } from 'mongoose';
 import { PersonalizadaException } from 'src/exception/personalizada.exception';
-import { User } from 'src/user/entities/user.entity';
+import { User } from 'src/resources/user/entities/user.entity';
 
 @Injectable()
 export class CourseService {

@@ -1,4 +1,4 @@
-import { User } from 'src/user/entities/user.entity';
+import { User } from 'src/resources/user/entities/user.entity';
 
 export class CreateCourseDto {
   name: string;
